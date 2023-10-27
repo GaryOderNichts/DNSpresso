@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+	<head>
+		<title>DNSpresso</title>
+	</head>
+	<body>
+		<h1>DNSpresso</h1>
+		<h3>What's this?</h3>
+		<p>
+			This is the landing page for DNSpresso, a DNS exploit for the Nintendo Wii U.<br>
+			For the GitHub repository click <a href="https://github.com/GaryOderNichts/DNSpresso">here</a> or for the technical write-up click <a href="https://garyodernichts.blogspot.com/2023/10/exploiting-dns-response-parsing-on-wii-u.html">here</a>.
+		</p>
+		<h3>Why am I seeing this?</h3>
+		<p>
+			You most likely entered the server IP into your browser. For usage instructions see the <strong>How do I use this?</strong> steps below.
+		</p>
+		<p>
+			If you did not intend to visit this page, you might have set the DNSpresso server as the DNS server for your default connection.<br>
+			To remove this DNS server head over to
+			<strong>System Settings</strong> -> <strong>Internet</strong> -> <strong>Connect to the Internet</strong> -> <strong>(X) Connection List</strong> ->
+			<em>The connection with the Wii U logo</em> -> <strong>Change Settings</strong> -> <strong>DNS</strong> -> <em>Set to <strong>Auto-obtain</strong> or select an alternative server</em>.<br>
+			If you're on any other device that isn't a Wii U, then I'm not sure what you're doing.
+		</p>
+		<h3>How do I use this?</h3>
+		<p>
+			<ul>
+				<li>Place all files required for booting into your homebrew environment on your SD Card (for example from <a href="https://aroma.foryour.cafe/">aroma.foryour.cafe</a>).</li>
+				<li>Place a RPX you want to boot on the root of your SD Card and rename it to <code>launch.rpx</code> (for example <a href="https://github.com/wiiu-env/PayloadFromRPX/">PayloadFromRPX</a>).</li>
+				<li>On your Wii U head over to <strong>System Settings</strong> -> <strong>Internet</strong> -> <strong>Connect to the Internet</strong> and setup a new connection (<strong>Recommended!</strong>).</li>
+				<li>Go to <strong>(X) Connection List</strong> and select your newly created connection.</li>
+				<li>Select <strong>Change Settings</strong> -> <strong>DNS</strong> -> <strong>Do not auto-obtain</strong>.</li>
+				<li>Enter <strong><code>85.215.57.182</code></strong> as the Primary DNS and select <strong>Confirm</strong>.</li>
+				<li>Press <strong>(B) Back</strong> and select <strong>Connection Test</strong>.</li>
+			</ul>
+			Your console will now start a connection test which should freeze after a few seconds.<br>
+			After waiting for a few more seconds you should be greeted by the DNSpresso splash screen and your console will boot the <code>launch.rpx</code>.
+		</p>
+		<h3>How does this work?</h3>
+		<p>
+			The Wii U does not properly check the size of additional PTR records in DNS responses which can lead to remote code execution.<br>
+			For more information see the <a href="https://garyodernichts.blogspot.com/2023/10/exploiting-dns-response-parsing-on-wii-u.html">technical write-up</a>.
+		</p>
+	</body>
+</html>

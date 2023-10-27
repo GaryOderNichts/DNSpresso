@@ -1,0 +1,9 @@
+build/
+
+*.elf
+*.bin
+*.bin.h
+*_syms.h
+
+# let's add the ios_kernel.bin to the repo, so we can just clone the repo when hosting
+!ios_kernel/ios_kernel.bin
