@@ -20,12 +20,8 @@ After waiting for a few more seconds you should be greeted by the DNSpresso spla
 ## Self-Hosting
 The following steps are for selfhosting on Debian 12, and should be treated as an example setup.  
 
-- Disable systemd-resolved (otherwise you get an error that port 53 is already in use):
-```bash
-systemctl stop systemd-resolved
-systemctl disable systemd-resolved
-systemctl mask systemd-resolved
-```
+- Disable the systemd-resolved `DNSStubListener` (otherwise you get an error that port 53 is already in use):
+  See [here](https://www.turek.dev/posts/disable-systemd-resolved-cleanly/) or [here](https://unix.stackexchange.com/questions/615819/how-to-correctly-disable-systemd-resolved-on-port-53-for-avoiding-clash-with-dns).
 - Install dnslib:
 ```bash
 apt install python3-dnslib
