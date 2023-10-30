@@ -26,7 +26,8 @@ static const uint8_t repairData_set_panic_behavior[] = {
     0xE5,0x92,0x30,0x54,0xE5,0x9C,0x00,0x00,
 };
 
-void mcp_run_patches(uint32_t ios_elf_start) {
+void mcp_run_patches(uint32_t ios_elf_start)
+{
     // write ios_mcp code and bss
     section_write_bss(ios_elf_start, __mcp_bss_start, __mcp_bss_end - __mcp_bss_start);
     section_write(ios_elf_start, 0x05116000, ios_mcp, ios_mcp_size);
@@ -40,7 +41,8 @@ void mcp_run_patches(uint32_t ios_elf_start) {
     section_write_word(ios_elf_start, 0x051105ce, THUMB_BL(0x051105ce, MCP_ReadCOSXml_patch));
 }
 
-void kernel_launch_ios(uint32_t launch_address, uint32_t L, uint32_t C, uint32_t H) {
+void kernel_launch_ios(uint32_t launch_address, uint32_t L, uint32_t C, uint32_t H)
+{
     void (*kernel_launch_bootrom)(uint32_t launch_address, uint32_t L, uint32_t C, uint32_t H) = (void *) 0x0812A050;
 
     //IOS_Shutdown(1);

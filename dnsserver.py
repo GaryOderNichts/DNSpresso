@@ -214,8 +214,8 @@ class Stage0:
         # hostent
         buf += b'\x00' * 0x14
 
-        # type + pad
-        buf += b'\x00\x00\x00\x00'
+        # type (A) + pad
+        buf += b'\x01\x00\x00\x00'
 
         # ???
         buf += b'\x00\x00\x00\x00'
@@ -384,8 +384,8 @@ class Stage1:
         # hostent
         buf += b'\x00' * 0x14
 
-        # type + pad
-        buf += b'\x00\x00\x00\x00'
+        # type (A) + pad
+        buf += b'\x01\x00\x00\x00'
 
         # ???
         buf += b'\x00\x00\x00\x00'
@@ -563,8 +563,6 @@ class Stage2:
         return buf
 
 def is_conntest(request) -> bool:
-    # TODO could also check for type, but just matching for A records doesn't
-    # work with the TCP queries
     return request.q.qname.matchGlob("conntest.nintendowifi.net")
 
 def do_redir_reply(request):
@@ -575,6 +573,10 @@ def do_redir_reply(request):
 
 class UDPResolver:
     def resolve(request, handler):
+        # to prevent spam requests we ignore all other types
+        if request.q.qtype != QTYPE.A:
+            raise DNSError('Unsupported type: [%s]' % QTYPE[request.q.qtype])
+
         # if this is not a conntest, respond with the default response
         if not is_conntest(request):
             return do_redir_reply(request)
@@ -584,6 +586,10 @@ class UDPResolver:
 
 class TCPResolver:
     def resolve(request, handler):
+        # to prevent spam requests we ignore all other types
+        if request.q.qtype != QTYPE.A:
+            raise DNSError('Unsupported type: [%s]' % QTYPE[request.q.qtype])
+
         # if this is not a conntest, respond with the default response
         if not is_conntest(request):
             return do_redir_reply(request)
